@@ -19,20 +19,88 @@
       </div>
     </div>
     <form id="form-add-post" class="form-add-post" action="#" method="post">
-      <div class="add-post-title">Add a Post</div>
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required /><br />
+      <div class="form-box" data-errormsg="">
+        <div class="add-post-title">Add a Post</div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required /><br />
+      </div>
 
-      <label for="title">Title:</label>
-      <input type="text" id="title" name="title" required /><br />
+      <div class="form-box" data-errormsg="">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required /><br />
+      </div>
 
-      <label for="comment">Comment:</label>
-      <input type="text" id="comment" name="comment" required /> <br />
-      <button type="button" id="submit-post">Submit</button>
-      <button type="button" id="submit-reset">Reset</button>
+      <div class="form-box" data-errormsg="">
+        <label for="comment">Comment:</label>
+        <input type="text" id="comment" name="comment" required /> <br />
+      </div>
+
+      <div class="form-box" data-errormsg="">
+        <button type="button" id="submit-post">Submit</button>
+        <button type="button" id="submit-reset">Reset</button>
+      </div>
     </form>
   </body>
 </html>
+
+<script>
+  /*function submitPostx() {
+    let post = new Object();
+    post.username = document.getElementById("username").textContent;
+    post.title = document.getElementById("title").innerHTML;
+    post.comment = document.getElementById("comment").innerHTML;
+    alert(post.username + post.title + post.comment);
+  }*/
+
+  const init = function () {
+    console.log("log: DOM Content successfully loaded");
+    document
+      .getElementById("submit-post")
+      .addEventListener("click", submitPost);
+
+    document
+      .getElementById("submit-reset")
+      .addEventListener("click", submitReset);
+  };
+
+  const submitPost = function (ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    //bool
+    let validCheck = validate();
+
+    if (validCheck) {
+      document.getElementById("form-add-post").submit();
+    } else {
+      let err = document.querySelector(".error");
+      let input = document.querySelector(".input");
+      err.setAttribute("data-errormsg", "Missing ${input.placeholder}");
+    }
+  };
+
+  const submitReset = function (ev) {
+    ev.preventDefault();
+    document.getElementById("form-add-post").reset();
+  };
+
+  const validate = function (ev) {
+    let valid = true;
+    let username = document.getElementById("username");
+    let title = document.getElementById("title");
+    let comment = document.getElementById("comment");
+
+    if (
+      !(username.value !== "" && title.value !== "" && comment.value !== "")
+    ) {
+      valid = false;
+    }
+
+    return valid;
+  };
+
+  document.addEventListener("DOMContentLoaded", init);
+</script>
 
 <style>
   body {
@@ -82,50 +150,3 @@
     padding-top: 20px;
   }
 </style>
-
-<script>
-  /*function submitPostx() {
-    let post = new Object();
-    post.username = document.getElementById("username").textContent;
-    post.title = document.getElementById("title").innerHTML;
-    post.comment = document.getElementById("comment").innerHTML;
-    alert(post.username + post.title + post.comment);
-  }*/
-
-  const init = function () {
-    console.log("log: DOM Content successfully loaded");
-    document
-      .getElementById("submit-post")
-      .addEventListener("click", submitPost);
-
-    document
-      .getElementById("submit-reset")
-      .addEventListener("click", submitReset);
-  };
-
-  const submitPost = function (ev) {
-    ev.preventDefault();
-    ev.stopPropagation();
-
-    //bool
-    let ret = validate();
-
-    if (ret) {
-      //good
-      document.getElementById("form-add-post").submit();
-    } else {
-      //bad
-    }
-  };
-
-  const submitReset = function (ev) {
-    ev.preventDefault();
-    document.getElementById("form-add-post").reset();
-  };
-
-  const validate = function (ev) {
-    return true;
-  };
-
-  document.addEventListener("DOMContentLoaded", init);
-</script>
