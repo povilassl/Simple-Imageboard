@@ -1,0 +1,61 @@
+
+    body {
+      background: black;
+      color: white;
+    }
+
+    .board {
+      color: white;
+    }
+
+    .info {
+      padding: 0 0 40px 0;
+    }
+
+    .board-name {
+      padding: 20px 0 20px 0;
+      font-size: 50px;
+    }
+
+    .board-about {
+      width: 20%;
+      right: 0;
+      left: 0;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .form-add-post {
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+      width: 20%;
+      background-color: grey;
+      margin-bottom: 40px;
+    }
+
+    .add-post-title {
+      text-align: center;
+      font-size: 40px;
+    }
+
+    img {
+      width: 15%;
+      padding-top: 20px;
+    }
+
+    .required:after {
+      content: " *";
+      color: red;
+    }
+
+    table,
+    tr {
+      border-top: 1px solid white;
+      border-collapse: collapse;
+    }
