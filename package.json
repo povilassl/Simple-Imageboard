@@ -1,0 +1,23 @@
+{
+  "name": "simple-js-imageboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/povilassl/Simple-JS-Imageboard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/povilassl/Simple-JS-Imageboard/issues"
+  },
+  "homepage": "https://github.com/povilassl/Simple-JS-Imageboard#readme",
+  "devDependencies": {
+    "@prettier/plugin-php": "0.14.3",
+    "prettier": "2.0.5"
+  }
+}
