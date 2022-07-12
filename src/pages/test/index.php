@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-  <link rel="icon" type="image/x-icon" href="/src/images/favicon.ico" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="stylesheet" href="/src/css/board_style.css" />
   <?php
   $user = 'root';

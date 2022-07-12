@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html>
 
 <head>
-  <link rel="icon" type="image/x-icon" href="/src/images/favicon.ico" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 </head>
 
 <body>
@@ -31,7 +30,6 @@
   </div>
 </body>
 
-</html>
 
 <style>
   body {

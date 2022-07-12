@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-  <link rel="icon" type="image/x-icon" href="/src/images/favicon.ico" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="stylesheet" href="/src/css/board_style.css" />
   <?php
   $user = 'root';
@@ -23,6 +23,7 @@
       $mysqli->connect_error);
   }
 
+  // $image = $_GET['image'];
   $username = $_GET['username'];
   $title = $_GET['title'];
   $comment = $_GET['comment'];
