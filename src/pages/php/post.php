@@ -23,13 +23,15 @@
       $mysqli->connect_error);
   }
 
-  // $image = $_GET['image'];
-  $username = $_GET['username'];
-  $title = $_GET['title'];
-  $comment = $_GET['comment'];
+  $image = addslashes(file_get_contents($_FILES['image']['tmp_name']));
+  $username = $_POST['username'];
+  $title = $_POST['title'];
+  $comment = $_POST['comment'];
+
+
 
   // SQL query to select data from database
-  $sql = "insert into posts (id, username, title, comment) values (default, '$username', '$title', '$comment' )";
+  $sql = "insert into posts (image, username, title, comment) values ('$image', '$username', '$title', '$comment' )";
   if ($conn->query($sql) === TRUE) {
   } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
@@ -56,9 +58,18 @@
   </div>
 
   <div class="post">
-    <div> <?php echo $_GET["username"]; ?></div>
-    <div> <?php echo $_GET["title"]; ?></div>
-    <div> <?php echo $_GET["comment"]; ?></div>
+
+    <?php
+    if (isset($_FILES['image'])) {
+      $aExtraInfo = getimagesize($_FILES['image']['tmp_name']);
+      $sImage = "data:" . $aExtraInfo["mime"] . ";base64," . base64_encode(file_get_contents($_FILES['image']['tmp_name']));
+      echo '<img src="' . $sImage . '" alt="Uploaded image" />';
+    }
+    ?>
+
+    <div> <?php echo $_POST["username"]; ?></div>
+    <div> <?php echo $_POST["title"]; ?></div>
+    <div> <?php echo $_POST["comment"]; ?></div>
   </div>
 </body>
 

@@ -46,7 +46,7 @@
       temporibus fugiat quam.
     </div>
   </div>
-  <form id="form-add-post" class="form-add-post" action="/src/pages/php/post.php">
+  <form id="form-add-post" class="form-add-post" enctype="multipart/form-data" method="POST" action="/src/pages/php/post.php">
     <!-- method="post" action="#" -->
     <div class="form-box required">
       <div class="add-post-title">Add a Post</div>
@@ -84,6 +84,10 @@
       <tr>
         <!-- FETCHING DATA FROM EACH
                       ROW OF EVERY COLUMN -->
+        <td>
+          <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rows['image']); ?>" />
+        </td>
+
         <td><?php echo $rows['username']; ?></td>
         <td><?php echo $rows['title']; ?></td>
         <td><?php echo $rows['comment']; ?></td>
@@ -97,23 +101,10 @@
 
 
 <script>
-  /*function submitPostx() {
-  let post = new Object();
-  post.username = document.getElementById("username").textContent;
-  post.title = document.getElementById("title").innerHTML;
-  post.comment = document.getElementById("comment").innerHTML;
-  alert(post.username + post.title + post.comment);
-  }*/
-
   const init = function() {
-    console.log("log: DOM Content successfully loaded");
-    document
-      .getElementById("submit-post")
-      .addEventListener("click", submitPost);
-
-    document
-      .getElementById("submit-reset")
-      .addEventListener("click", submitReset);
+    console.log(" log: DOM Content successfully loaded");
+    document.getElementById("submit-post").addEventListener("click", submitPost);
+    document.getElementById("submit-reset").addEventListener("click", submitReset);
   };
 
   const submitPost = function(ev) {
@@ -125,8 +116,9 @@
     if (validCheck) {
       document.getElementById("form-add-post").submit();
     } else {
-      //set red * - interactive
-    }
+      alert("wrong input");
+      //set red * -interactive
+    };
   };
 
   const submitReset = function(ev) {
@@ -144,13 +136,9 @@
 
     let allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
 
-
-    if (
-      !(
-        username.value.length > 0 &&
-        username.value.length <= 50 && title.value.length > 0 &&
-        title.value.length <= 100 && comment.value.length > 0 &&
-        comment.value.length <= 500 &&
+    if (!(username.value.length > 0 && username.value.length <= 50 &&
+        title.value.length > 0 && title.value.length <= 100 &&
+        comment.value.length > 0 && comment.value.length <= 500 &&
         filePath !== "")) {
       valid = false;
     }
@@ -158,6 +146,7 @@
       alert('Invalid file type');
       fileInput.value = '';
       valid = false;
+      //max file size=16kb 
     }
     return valid;
   };
