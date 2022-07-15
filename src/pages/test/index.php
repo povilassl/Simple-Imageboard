@@ -3,6 +3,7 @@
 <head>
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="stylesheet" href="/src/css/board_style.css" />
+  <script type="text/javascript" src="/src/js/post_interactions.js"></script>
   <?php
   $user = 'root';
   $password = '';
@@ -85,6 +86,10 @@
         <!-- FETCHING DATA FROM EACH
                       ROW OF EVERY COLUMN -->
         <td>
+          <form action="/src/pages/php/comment.php?id=<?php echo $rows['id'] ?>" method="POST">
+            <input type="submit" value="[reply]">
+          </form>
+
           <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rows['image']); ?>" />
         </td>
 
@@ -97,59 +102,3 @@
     ?>
   </table>
 </body>
-
-
-
-<script>
-  const init = function() {
-    console.log(" log: DOM Content successfully loaded");
-    document.getElementById("submit-post").addEventListener("click", submitPost);
-    document.getElementById("submit-reset").addEventListener("click", submitReset);
-  };
-
-  const submitPost = function(ev) {
-    ev.preventDefault();
-    ev.stopPropagation();
-
-    let validCheck = evaluateInput();
-
-    if (validCheck) {
-      document.getElementById("form-add-post").submit();
-    } else {
-      alert("wrong input");
-      //set red * -interactive
-    };
-  };
-
-  const submitReset = function(ev) {
-    ev.preventDefault();
-    document.getElementById("form-add-post").reset();
-  };
-
-  function evaluateInput() {
-    let valid = true;
-    let username = document.getElementById("username");
-    let title = document.getElementById("title");
-    let comment = document.getElementById("comment");
-    let image = document.getElementById("image");
-    let filePath = image.value;
-
-    let allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-
-    if (!(username.value.length > 0 && username.value.length <= 50 &&
-        title.value.length > 0 && title.value.length <= 100 &&
-        comment.value.length > 0 && comment.value.length <= 500 &&
-        filePath !== "")) {
-      valid = false;
-    }
-    if (!allowedExtensions.exec(filePath)) {
-      alert('Invalid file type');
-      fileInput.value = '';
-      valid = false;
-      //max file size=16kb 
-    }
-    return valid;
-  };
-
-  document.addEventListener("DOMContentLoaded", init);
-</script>
