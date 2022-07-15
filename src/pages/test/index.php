@@ -3,7 +3,6 @@
 <head>
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="stylesheet" href="/src/css/board_style.css" />
-  <script type="text/javascript" src="/src/js/post_interactions.js"></script>
   <?php
   $user = 'root';
   $password = '';
@@ -48,7 +47,8 @@
     </div>
   </div>
   <form id="form-add-post" class="form-add-post" enctype="multipart/form-data" method="POST" action="/src/pages/php/post.php">
-    <!-- method="post" action="#" -->
+
+    <input type="hidden" name="type" value="new_post" />
     <div class="form-box required">
       <div class="add-post-title">Add a Post</div>
       <label for="username">Username:</label>
@@ -86,7 +86,9 @@
         <!-- FETCHING DATA FROM EACH
                       ROW OF EVERY COLUMN -->
         <td>
-          <form action="/src/pages/php/comment.php?id=<?php echo $rows['id'] ?>" method="POST">
+          <form action="/src/pages/php/post.php" method="POST">
+            <input type="hidden" name="id" value="<?php echo $rows['id'] ?>" />
+            <input type="hidden" name="type" value="new_comment" />
             <input type="submit" value="[reply]">
           </form>
 
@@ -102,3 +104,4 @@
     ?>
   </table>
 </body>
+<script type="text/javascript" src="/src/js/post_interactions.js"></script>

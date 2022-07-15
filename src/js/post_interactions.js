@@ -1,20 +1,19 @@
 const init = function () {
   console.log(" log: DOM Content successfully loaded");
-  document.getElementById("submit-post").addEventListener("click", submitPost);
   document
     .getElementById("submit-reset")
     .addEventListener("click", submitReset);
+  document.getElementById("submit-post").addEventListener("click", submitPost);
 };
 
 const submitPost = function (ev) {
   ev.preventDefault();
   ev.stopPropagation();
 
-  let validCheck = evaluateInput;
+  let validCheck = evaluateInput();
 
   if (validCheck) {
     document.getElementById("form-add-post").submit();
-    document.getElementById("form-add-comment").submit();
   } else {
     alert("wrong input");
     //set red * -interactive
@@ -24,13 +23,18 @@ const submitPost = function (ev) {
 const submitReset = function (ev) {
   ev.preventDefault();
   document.getElementById("form-add-post").reset();
-  document.getElementById("form-add-comment").reset();
 };
 
-const evaluateInput = function (ev) {
+function evaluateInput() {
   let valid = true;
   let username = document.getElementById("username");
-  let title = document.getElementById("title");
+
+  if (document.getElementById("title") !== null) {
+    let title = document.getElementById("title");
+    if (!(title.value.length > 0 && title.value.length <= 100)) {
+      valid = false;
+    }
+  }
   let comment = document.getElementById("comment");
   let image = document.getElementById("image");
   let filePath = image.value;
@@ -41,8 +45,6 @@ const evaluateInput = function (ev) {
     !(
       username.value.length > 0 &&
       username.value.length <= 50 &&
-      title.value.length > 0 &&
-      title.value.length <= 100 &&
       comment.value.length > 0 &&
       comment.value.length <= 500 &&
       filePath !== ""
@@ -51,12 +53,12 @@ const evaluateInput = function (ev) {
     valid = false;
   }
   if (!allowedExtensions.exec(filePath)) {
-    alert("Invalid file type");
-    fileInput.value = "";
+    //alert("Invalid file type");
     valid = false;
     //max file size=16kb
   }
   return valid;
-};
+}
 
-document.addEventListener("DOMContentLoaded", init);
+// document.addEventListener("DOMContentLoaded", init);
+window.addEventListener("load", init);

@@ -3,7 +3,6 @@
 <head>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="stylesheet" href="/src/css/board_style.css" />
-    <script type="text/javascript" src="/src/js/post_interactions.js"></script>
     <?php
     $servername = 'localhost';
     $user = 'root';
@@ -24,22 +23,23 @@
             $mysqli->connect_error);
     }
 
-    //we try to get id, if not means its the full submit comment data
-    try {
-        $post_id = $_GET['id'];
-    } catch (Exception $e) {
-        $image = addslashes(file_get_contents($_FILES['image']['tmp_name']));
-        $username = $_POST['username'];
-        $comment = $_POST['comment'];
+    $post_type = $_GET['type'];
+    echo $post_type;
 
-        // SQL query to select data from database
-        $sql = "insert into comments (id, image, username, comment) values ('$image', '$username', '$title', '$comment' )";
-        if ($conn->query($sql) === TRUE) {
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
-        $conn->close();
-    }
+    //we try to get id, if not means its the full submit comment data
+    //$image = addslashes(file_get_contents($_FILES['image']['tmp_name']));
+    $username = $_POST['username'];
+    // $post_id = $_POST['id'];
+    // $comment = $_POST['comment'];
+
+    // // SQL query to select data from database
+    // $sql = "insert into comments (id, image, username, comment) values ('$image', '$username', '$title', '$comment' )";
+    // if ($mysqli->query($sql) === TRUE) {
+    // } else {
+    //     echo "Error: " . $sql . "<br>" . $conn->error;
+    // }
+    //if there is no such data - its the first time visiting the page
+    $post_id = $_GET['id'];
 
     // SQL query to select data from database
     $sql = " select * from posts where id = " . $post_id . ";";
@@ -119,3 +119,6 @@
         display: inline-block;
     }
 </style>
+
+<!-- need to fix this -->
+<script type="text/javascript" src="/src/js/post_interactions.js"></script>
