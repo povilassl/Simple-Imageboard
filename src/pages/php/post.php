@@ -27,7 +27,7 @@
   $type = $_POST['type'];
   if ($type == "new_post") {
 
-
+    //TODO: check me, more like this below - to function?
     $image = addslashes(file_get_contents($_FILES['image']['tmp_name']));
     $username = $_POST['username'];
     $title = $_POST['title'];
@@ -42,16 +42,43 @@
       echo "Error: " . $sql . "<br>" . $mysqli->error;
     }
 
-    $sql = "select * from posts order by id desc";
+    $id = $rows['id'];
+    $sql = "select * from posts order by id desc"; //TODO: adjust tthis - maybe top 200 + title and username;
     $result = $mysqli->query($sql);
     $rows = $result->fetch_assoc();
-    $id = $rows['id'];
-  } else if ($type == "new_comment") {
+  } else if ($type == "comment") {
+
     $id = $_POST['id'];
     $sql = "select * from posts where id = " . $id . ";";
     $result = $mysqli->query($sql);
     $rows = $result->fetch_assoc();
+  } else if ($type == "new_comment") {
+
+    //need to delete one of these -- ont know which
+    //also need to alter js file to let not upload file
+    if (!file_exists($_FILES['image']['tmp_name']) || !is_uploaded_file($_FILES['image']['tmp_name'])) {
+      echo 'No upload';
+    } else {
+
+      $image = addslashes(file_get_contents($_FILES['image']['tmp_name']));
+      $username = $_POST['username'];
+      $comment = $_POST['comment'];
+      $id = $_POST['id'];
+
+      // SQL query to select data from database
+      $sql = "insert into comments (id, image, username, comment) values ('$id', '$image', '$username', '$comment' )";
+      if ($mysqli->query($sql) === TRUE) {
+        echo "asdddasd";
+      } else {
+        echo "Error: " . $sql . "<br>" . $mysqli->error;
+      }
+    }
   }
+
+
+  $sql = " SELECT * FROM posts where id = " . $id;
+  $resultComments = $mysqli->query($sql);
+
 
   $mysqli->close();
   ?>
@@ -74,8 +101,8 @@
     </div>
   </div>
 
-  <form id="form-add-post" class="form-add-post" enctype="multipart/form-data" method="POST" action="/src/pages/php/comment.php">
-    <input type="hidden" name="post_id" value="<?php echo $id ?>" />
+  <form id="form-add-post" class="form-add-post" enctype="multipart/form-data" method="POST" action="/src/pages/php/post.php">
+    <input type="hidden" name="id" value="<?php echo $id ?>" />
     <input type="hidden" name="type" value="new_comment" />
     <div class="form-box required">
       <div class="add-post-title">Add a Reply</div>
@@ -109,6 +136,17 @@
     <td><?php echo $rows['title']; ?></td>
     <td><?php echo $rows['comment']; ?></td>
   </div>
+  <?php
+  while ($rowsComments = $resultComments->fetch_assoc()) {
+  ?>
+    <tr>
+      <td>Comment:</td>
+      <td><?php echo $rowsComments['username']; ?></td>
+      <td><?php echo $rowsComments['comment']; ?></td>
+    </tr>
+  <?php
+  }
+  ?>
 </body>
 
 <style>

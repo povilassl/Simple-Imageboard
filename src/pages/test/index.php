@@ -4,6 +4,7 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="stylesheet" href="/src/css/board_style.css" />
   <?php
+
   $user = 'root';
   $password = '';
   $database = 'my_db';
@@ -25,8 +26,7 @@
 
   // SQL query to select data from database
   $sql = " SELECT * FROM posts ";
-  $result = $mysqli->query($sql);
-  $mysqli->close();
+  $resultPosts = $mysqli->query($sql);
   ?>
 
 </head>
@@ -80,28 +80,47 @@
   <table>
     <?php
     // LOOP TILL END OF DATA
-    while ($rows = $result->fetch_assoc()) {
+    while ($rowsPosts = $resultPosts->fetch_assoc()) {
     ?>
       <tr>
         <!-- FETCHING DATA FROM EACH
                       ROW OF EVERY COLUMN -->
         <td>
           <form action="/src/pages/php/post.php" method="POST">
-            <input type="hidden" name="id" value="<?php echo $rows['id'] ?>" />
-            <input type="hidden" name="type" value="new_comment" />
+            <input type="hidden" name="id" value="<?php echo $rowsPosts['id'] ?>" />
+            <input type="hidden" name="type" value="comment" />
             <input type="submit" value="[reply]">
           </form>
 
-          <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rows['image']); ?>" />
+          <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rowsPosts['image']); ?>" />
         </td>
 
-        <td><?php echo $rows['username']; ?></td>
-        <td><?php echo $rows['title']; ?></td>
-        <td><?php echo $rows['comment']; ?></td>
+        <td><?php echo $rowsPosts['username']; ?></td>
+        <td><?php echo $rowsPosts['title']; ?></td>
+        <td><?php echo $rowsPosts['comment']; ?></td>
       </tr>
+
+      <?php
+
+      $sql = " SELECT * FROM posts where id = " . $rowsPosts['id'];
+      $resultComments = $mysqli->query($sql);
+
+      while ($rowsComments = $resultComments->fetch_assoc()) {
+      ?>
+        <tr>
+          <td><?php echo $rowsComments['username']; ?></td>
+          <td><?php echo $rowsComments['comment']; ?></td>
+        </tr>
     <?php
+      }
     }
     ?>
+    <!-- while ($rowsComments = $resultComments->fetch_assoc()) {
+          } -->
+
   </table>
+  <?php
+  $mysqli->close();
+  ?>
 </body>
 <script type="text/javascript" src="/src/js/post_interactions.js"></script>

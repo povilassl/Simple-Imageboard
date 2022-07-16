@@ -29,6 +29,7 @@ function evaluateInput() {
   let valid = true;
   let username = document.getElementById("username");
 
+  //TODO: check this
   if (document.getElementById("title") !== null) {
     let title = document.getElementById("title");
     if (!(title.value.length > 0 && title.value.length <= 100)) {
