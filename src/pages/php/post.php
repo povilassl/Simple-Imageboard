@@ -24,61 +24,67 @@
       $mysqli->connect_error);
   }
 
-  $type = $_POST['type'];
-  if ($type == "new_post") {
+  // $type = $_POST['type'];
+  // if ($type == "new_post") {
 
-    //TODO: check me, more like this below - to function?
-    $image = addslashes(file_get_contents($_FILES['image']['tmp_name']));
-    $username = $_POST['username'];
-    $title = $_POST['title'];
-    $comment = $_POST['comment'];
+  //   $image = addslashes(file_get_contents($_FILES['image']['tmp_name']));
+  //   $username = $_POST['username'];
+  //   $title = $_POST['title'];
+  //   $comment = $_POST['comment'];
 
+  //   // SQL query to select data from database
+  //   $sql = "insert into posts (image, username, title, comment) values ('$image', '$username', '$title', '$comment' )";
+  //   if ($mysqli->query($sql) === TRUE) {
+  //   } else {
+  //     echo "Error: " . $sql . "<br>" . $mysqli->error;
+  //   }
 
+  //   //dont think we can get id before uploading, so making sure we get the right one by specifying extensively
+  //   //worst case scenario - wrong post displayed upon uploading
+  //   $sql = "select * from posts where username = '" . $username . "' and title = '" . $title . "' and comment = '" . $comment . "' order by id desc limit 10";
+  //   $result = $mysqli->query($sql);
+  //   $rows = $result->fetch_assoc();
+  //   $id = $rows['id'];
+  // } else if ($type == "comment") {
 
-    // SQL query to select data from database
-    $sql = "insert into posts (image, username, title, comment) values ('$image', '$username', '$title', '$comment' )";
-    if ($mysqli->query($sql) === TRUE) {
-    } else {
-      echo "Error: " . $sql . "<br>" . $mysqli->error;
-    }
+  //   $id = $_POST['id'];
+  //   $sql = "select * from posts where id = " . $id . ";";
+  //   $result = $mysqli->query($sql);
+  //   $rows = $result->fetch_assoc();
+  // } else if ($type == "new_comment") {
 
-    $id = $rows['id'];
-    $sql = "select * from posts order by id desc"; //TODO: adjust tthis - maybe top 200 + title and username;
-    $result = $mysqli->query($sql);
-    $rows = $result->fetch_assoc();
-  } else if ($type == "comment") {
+  //   //need to delete one of these -- ont know which
+  //   //also need to alter js file to let not upload file
+  //   if (!file_exists($_FILES['image']['tmp_name']) || !is_uploaded_file($_FILES['image']['tmp_name'])) {
+  //     echo 'No upload';
+  //   } else {
 
-    $id = $_POST['id'];
-    $sql = "select * from posts where id = " . $id . ";";
-    $result = $mysqli->query($sql);
-    $rows = $result->fetch_assoc();
-  } else if ($type == "new_comment") {
+  //     $image = addslashes(file_get_contents($_FILES['image']['tmp_name']));
+  //     $username = $_POST['username'];
+  //     $comment = $_POST['comment'];
+  //     $id = $_POST['id'];
 
-    //need to delete one of these -- ont know which
-    //also need to alter js file to let not upload file
-    if (!file_exists($_FILES['image']['tmp_name']) || !is_uploaded_file($_FILES['image']['tmp_name'])) {
-      echo 'No upload';
-    } else {
+  //     // SQL query to select data from database
+  //     $sql = "insert into comments (id, image, username, comment) values ('$id', '$image', '$username', '$comment' )";
+  //     if ($mysqli->query($sql) === TRUE) {
+  //     } else {
+  //       echo "Error: " . $sql . "<br>" . $mysqli->error;
+  //     }
+  //     $sql = "select * from posts where id = " . $id . ";";
+  //     $result = $mysqli->query($sql);
+  //     $rows = $result->fetch_assoc();
+  //   }
+  // }
 
-      $image = addslashes(file_get_contents($_FILES['image']['tmp_name']));
-      $username = $_POST['username'];
-      $comment = $_POST['comment'];
-      $id = $_POST['id'];
+  //fetch Post - use only first line
+  $id = $_POST['id'];
+  $sql = "select * from posts where id = " . $id . ";";
+  $resultPost = $mysqli->query($sql);
+  $rows = $resultPost->fetch_assoc();
 
-      // SQL query to select data from database
-      $sql = "insert into comments (id, image, username, comment) values ('$id', '$image', '$username', '$comment' )";
-      if ($mysqli->query($sql) === TRUE) {
-        echo "asdddasd";
-      } else {
-        echo "Error: " . $sql . "<br>" . $mysqli->error;
-      }
-    }
-  }
-
-
-  $sql = " SELECT * FROM posts where id = " . $id;
+  //fetch comments - multiple lines
+  $sql = " SELECT * FROM comments where id = " . $id;
   $resultComments = $mysqli->query($sql);
-
 
   $mysqli->close();
   ?>
@@ -101,11 +107,10 @@
     </div>
   </div>
 
-  <form id="form-add-post" class="form-add-post" enctype="multipart/form-data" method="POST" action="/src/pages/php/post.php">
+  <form id="form-add-comment" class="form-add-comment" enctype="multipart/form-data" method="POST" action="./addNewComment.php">
     <input type="hidden" name="id" value="<?php echo $id ?>" />
-    <input type="hidden" name="type" value="new_comment" />
     <div class="form-box required">
-      <div class="add-post-title">Add a Reply</div>
+      <div class="add-comment-title">Add a Reply</div>
       <label for="username">Username:</label>
       <input type="text" id="username" name="username" required />
     </div>
@@ -121,37 +126,42 @@
     </div>
 
     <div class="form-box">
-      <button type="button" id="submit-post">Submit</button>
+      <button type="button" id="submit-comment">Submit</button>
       <button type="button" id="submit-reset">Reset</button>
     </div>
   </form>
 
-  <div class="post">
-
-
-    <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rows['image']); ?>" />
-    </td>
-
-    <td><?php echo $rows['username']; ?></td>
-    <td><?php echo $rows['title']; ?></td>
-    <td><?php echo $rows['comment']; ?></td>
-  </div>
-  <?php
-  while ($rowsComments = $resultComments->fetch_assoc()) {
-  ?>
+  <table>
     <tr>
-      <td>Comment:</td>
-      <td><?php echo $rowsComments['username']; ?></td>
-      <td><?php echo $rowsComments['comment']; ?></td>
+
+      <td>
+        <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rows['image']); ?>" />
+      </td>
+
+      <td><?php echo $rows['username']; ?></td>
+      <td><?php echo $rows['title']; ?></td>
+      <td><?php echo $rows['comment']; ?></td>
     </tr>
-  <?php
-  }
-  ?>
+    <?php
+    while ($rowsComments = $resultComments->fetch_assoc()) {
+    ?>
+      <tr>
+        <td>&nbsp;</td>
+        <?php
+        if (!empty($rowsComments['image'])) {
+          echo '<td><img src="data:image/jpg;charset=utf8;base64,' . base64_encode($rowsComments['image']) . '" /></td>';
+        }
+        ?>
+
+        <td><?php echo $rowsComments['username']; ?></td>
+        <td><?php echo $rowsComments['comment']; ?></td>
+
+
+      </tr>
+    <?php
+    }
+    ?>
+  </table>
 </body>
 
-<style>
-  .post div {
-    display: inline-block;
-  }
-</style>
-<script type="text/javascript" src="/src/js/post_interactions.js"></script>
+<script type="text/javascript" src="/src/js/comment_interactions.js"></script>

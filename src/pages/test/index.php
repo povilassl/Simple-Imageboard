@@ -46,8 +46,8 @@
       temporibus fugiat quam.
     </div>
   </div>
-  <form id="form-add-post" class="form-add-post" enctype="multipart/form-data" method="POST" action="/src/pages/php/post.php">
 
+  <form id="form-add-post" class="form-add-post" enctype="multipart/form-data" method="POST" action="/src/pages/php/addNewPost.php">
     <input type="hidden" name="type" value="new_post" />
     <div class="form-box required">
       <div class="add-post-title">Add a Post</div>
@@ -102,24 +102,31 @@
 
       <?php
 
-      $sql = " SELECT * FROM posts where id = " . $rowsPosts['id'];
+      $sql = " SELECT * FROM comments where id = " . $rowsPosts['id'];
       $resultComments = $mysqli->query($sql);
 
       while ($rowsComments = $resultComments->fetch_assoc()) {
       ?>
         <tr>
+          <td>&nbsp;</td>
+          <?php
+          if (!empty($rowsComments['image'])) {
+            echo '<td><img src="data:image/jpg;charset=utf8;base64,' . base64_encode($rowsComments['image']) . '" /></td>';
+          }
+          ?>
           <td><?php echo $rowsComments['username']; ?></td>
           <td><?php echo $rowsComments['comment']; ?></td>
         </tr>
-    <?php
+      <?php
       }
+      ?>
+
+    <?php
     }
     ?>
-    <!-- while ($rowsComments = $resultComments->fetch_assoc()) {
-          } -->
-
   </table>
   <?php
+
   $mysqli->close();
   ?>
 </body>
