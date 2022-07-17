@@ -25,7 +25,7 @@
   }
 
   // SQL query to select data from database
-  $sql = " SELECT * FROM posts ";
+  $sql = " SELECT * FROM posts order by date desc";
   $resultPosts = $mysqli->query($sql);
   ?>
 
@@ -37,7 +37,7 @@
     <a class="board test" href="src/pages/">test</a>
   </nav>
   <div class="center info">
-    <img src="/src/images/akira_motorcycle_test.png" />
+    <img src="/src/images/akira_motorcycle_test.png">
     <div class="board-name">/T/ - Test Page</div>
     <div class="board-about">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae eveniet,
@@ -48,26 +48,25 @@
   </div>
 
   <form id="form-add-post" class="form-add-post" enctype="multipart/form-data" method="POST" action="/src/pages/php/addNewPost.php">
-    <input type="hidden" name="type" value="new_post" />
     <div class="form-box required">
       <div class="add-post-title">Add a Post</div>
       <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required />
+      <input type="text" id="username" name="username" required>
     </div>
 
     <div class="form-box required">
       <label for="title">Title:</label>
-      <input type="text" id="title" name="title" required />
+      <input type="text" id="title" name="title" required>
     </div>
 
     <div class="form-box required">
       <label for="comment">Comment:</label>
-      <input type="text" id="comment" name="comment" required />
+      <input type="text" id="comment" name="comment" required>
     </div>
 
     <div class="form-box required">
       <label for="image">Image:</label>
-      <input type="file" id="image" name="image" required />
+      <input type="file" id="image" name="image" required>
     </div>
 
     <div class="form-box">
@@ -87,14 +86,14 @@
                       ROW OF EVERY COLUMN -->
         <td>
           <form action="/src/pages/php/post.php" method="POST">
-            <input type="hidden" name="id" value="<?php echo $rowsPosts['id'] ?>" />
-            <input type="hidden" name="type" value="comment" />
+            <input type="hidden" name="id" value="<?php echo $rowsPosts['id'] ?>">
             <input type="submit" value="[reply]">
           </form>
 
-          <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rowsPosts['image']); ?>" />
+          <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rowsPosts['image']); ?>">
         </td>
 
+        <td><?php echo $rowsPosts['date']; ?></td>
         <td><?php echo $rowsPosts['username']; ?></td>
         <td><?php echo $rowsPosts['title']; ?></td>
         <td><?php echo $rowsPosts['comment']; ?></td>
@@ -102,13 +101,14 @@
 
       <?php
 
-      $sql = " SELECT * FROM comments where id = " . $rowsPosts['id'];
+      $sql = " SELECT * FROM comments where id = " . $rowsPosts['id'] . " order by date asc";
       $resultComments = $mysqli->query($sql);
 
       while ($rowsComments = $resultComments->fetch_assoc()) {
       ?>
         <tr>
           <td>&nbsp;</td>
+          <td><?php echo $rowsComments['date']; ?></td>
           <?php
           if (!empty($rowsComments['image'])) {
             echo '<td><img src="data:image/jpg;charset=utf8;base64,' . base64_encode($rowsComments['image']) . '" /></td>';

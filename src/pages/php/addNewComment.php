@@ -22,14 +22,11 @@
             $mysqli->connect_error);
     }
 
-    $image = NULL;
 
-    //need to delete one of these -- ont know which
-    //also need to alter js file to let not upload file in comment
     if (!file_exists($_FILES['image']['tmp_name']) || !is_uploaded_file($_FILES['image']['tmp_name'])) {
         //no upload file
+        $image = NULL;
     } else {
-
         $image = addslashes(file_get_contents($_FILES['image']['tmp_name']));
     }
 
@@ -38,7 +35,14 @@
     $id = $_POST['id'];
 
     // SQL query to select data from database
-    $sql = "insert into comments (id, image, username, comment) values ('$id', '$image', '$username', '$comment' )";
+    $sql = "insert into comments (id, date, image, username, comment) values ('$id', now(), '$image', '$username', '$comment' )";
+    if ($mysqli->query($sql) === TRUE) {
+    } else {
+        echo "Error: " . $sql . "<br>" . $mysqli->error;
+    }
+
+    //update post date
+    $sql = "update posts set date = now() where id = " . $id;
     if ($mysqli->query($sql) === TRUE) {
     } else {
         echo "Error: " . $sql . "<br>" . $mysqli->error;

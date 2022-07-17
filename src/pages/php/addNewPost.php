@@ -22,15 +22,13 @@
             $mysqli->connect_error);
     }
 
-    // $type = $_POST['type']; TODO: remove types from everywhere
-
     $image = addslashes(file_get_contents($_FILES['image']['tmp_name']));
     $username = $_POST['username'];
     $title = $_POST['title'];
     $comment = $_POST['comment'];
 
 
-    $sql = "insert into posts (image, username, title, comment) values ('$image', '$username', '$title', '$comment' )";
+    $sql = "insert into posts (image, date, username, title, comment) values ('$image', now(), '$username', '$title', '$comment' )";
     if ($mysqli->query($sql) === TRUE) {
     } else {
         echo "Error: " . $sql . "<br>" . $mysqli->error;
