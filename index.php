@@ -3,9 +3,6 @@
 <head>
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <script type="text/javascript" src="/src/js/passwordManagement.js"></script>
-  <script>
-    makePass();
-  </script>
 </head>
 
 <body>

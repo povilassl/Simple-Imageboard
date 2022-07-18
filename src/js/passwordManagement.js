@@ -1,3 +1,9 @@
+const setPass = function () {
+  if (document.getElementById("password")) {
+    fillPasswordFromLocalStorage();
+  }
+};
+
 function makePassword(length) {
   var result = "";
   var characters =
@@ -22,16 +28,13 @@ function initTogglePasswordButton() {
 }
 
 function fillPasswordFromLocalStorage() {
-  makePass();
-  let passField = document.getElementById("password");
-  let pass = localStorage.getItem("password");
-  passField.value = pass;
+  const localStoragePass = localStorage.getItem("password");
+  if (localStoragePass === null) {
+    localStorage.setItem("password", makePassword(8));
+  }
+
+  const pass = localStorage.getItem("password");
+  document.getElementById("password").value = pass;
 }
 
-function makePass() {
-  let localStoragePass = localStorage.getItem("password");
-  if (localStoragePass === null) {
-    let pass = makePassword(8);
-    localStorage.setItem("password", pass);
-  }
-}
+document.addEventListener("DOMContentLoaded", setPass);

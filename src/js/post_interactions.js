@@ -25,6 +25,7 @@ const submitReset = function (ev) {
   document.getElementById("form-add-post").reset();
 };
 
+//move to for loop for faster return
 function strContainsBadChars(str) {
   let ans = false;
   let badChars = "~ ! @ # $ % ^ & * ( ) _ + , . / ; : ' - =";
@@ -39,40 +40,67 @@ function strContainsBadChars(str) {
 }
 
 function evaluateInput() {
-  let valid = true;
-  let username = document.getElementById("username").value;
-  let password = document.getElementById("password").value;
-  let title = document.getElementById("title").value;
-  let comment = document.getElementById("comment").value;
-  let filePath = document.getElementById("image").value;
-
-  let allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+  const title = document.getElementById("title").value;
+  const comment = document.getElementById("comment").value;
+  const filePath = document.getElementById("image").value;
 
   if (
-    username.length >= 5 &&
-    username.length <= 20 &&
-    title.length >= 5 &&
-    title.length <= 50 &&
-    comment.length >= 5 &&
-    comment.length <= 500 &&
-    password.length >= 5 &&
-    password.length <= 20 &&
-    !strContainsBadChars(username) &&
-    !strContainsBadChars(title) &&
-    !strContainsBadChars(comment) &&
-    filePath !== ""
+    !(
+      username.length >= 5 &&
+      username.length <= 20 &&
+      !strContainsBadChars(username)
+    )
   ) {
-  } else {
-    valid = false;
+    alert("Invalid username");
+    return false;
   }
 
-  //TODO: more extensive checks
-  if (!allowedExtensions.exec(filePath)) {
-    alert("Invalid file type");
-    valid = false;
-    //max file size=16kb -- or sth like that (medium blob)
+  if (
+    !(title.length >= 5 && title.length <= 50 && !strContainsBadChars(title))
+  ) {
+    alert("Invalid title");
+    return false;
   }
-  return valid;
+
+  if (
+    !(
+      comment.length >= 5 &&
+      comment.length <= 500 &&
+      !strContainsBadChars(comment)
+    )
+  ) {
+    alert("Invalid Comment");
+    return false;
+  }
+
+  if (!(password.length >= 5 && password.length <= 20)) {
+    alert("Invalid password");
+    return false;
+  }
+
+  if (filePath === "") {
+    alert("must upload file");
+    return false;
+  }
+
+  //find all dots (extensions) in the path
+  const occurenceOfExtension = filePath.split(".").length - 1;
+  const allowedExtensionsRegx = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+  const extension = filePath.substr(filePath.lastIndexOf("."));
+
+  if (!allowedExtensionsRegx.test(extension) || occurenceOfExtension != 1) {
+    alert("invalid file type");
+    return false;
+  }
+
+  return true;
 }
 
 document.addEventListener("DOMContentLoaded", init);
+
+//temporary filler values TODO: Delete
+document.getElementById("username").value = "fillerValue";
+document.getElementById("title").value = "fillerValue";
+document.getElementById("comment").value = "fillerValue";

@@ -71,7 +71,7 @@
 
     <div class="form-box required">
       <label for="image">Image:</label>
-      <input type="file" id="image" name="image" required>
+      <input type="file" id="image" name="image" accept=".png,.jpg,.jpeg,.gif" required>
     </div>
 
     <div class="form-box">
@@ -137,7 +137,3 @@
 </body>
 <script type="text/javascript" src="/src/js/post_interactions.js"></script>
 <script type="text/javascript" src="/src/js/passwordManagement.js"></script>
-<script>
-  // initTogglePasswordButton();
-  fillPasswordFromLocalStorage();
-</script>

@@ -7,6 +7,8 @@ checking input:
         comment len : 5 <= x <= 500 TODO: make this 0 <= x <= 500
         password    : 5 <= x <= 20 -- TODO: current - hash, future - tripcode?
 
-        file        : jpg, jpeg, png    TODO: add gifs, check type + size
+        file        : jpg, jpeg, png, gif
+            currently only checks extensions
+        type + size
 
     
