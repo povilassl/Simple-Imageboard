@@ -26,9 +26,10 @@
     $username = $_POST['username'];
     $title = $_POST['title'];
     $comment = $_POST['comment'];
+    $postPassword = $_POST['password'];
 
 
-    $sql = "insert into posts (image, date, username, title, comment) values ('$image', now(), '$username', '$title', '$comment' )";
+    $sql = "insert into posts (password, image, date, username, title, comment) values ('$postPassword', '$image', now(), '$username', '$title', '$comment' )";
     if ($mysqli->query($sql) === TRUE) {
     } else {
         echo "Error: " . $sql . "<br>" . $mysqli->error;

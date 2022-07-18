@@ -28,14 +28,8 @@ const submitReset = function (ev) {
 function evaluateInput() {
   let valid = true;
   let username = document.getElementById("username");
-
-  //TODO: check this
-  if (document.getElementById("title") !== null) {
-    let title = document.getElementById("title");
-    if (!(title.value.length > 0 && title.value.length <= 100)) {
-      valid = false;
-    }
-  }
+  let password = document.getElementById("password");
+  let title = document.getElementById("title");
   let comment = document.getElementById("comment");
   let image = document.getElementById("image");
   let filePath = image.value;
@@ -48,6 +42,10 @@ function evaluateInput() {
       username.value.length <= 50 &&
       comment.value.length > 0 &&
       comment.value.length <= 500 &&
+      title.value.length > 0 &&
+      title.value.length <= 100 &&
+      password.value.length > 0 &&
+      password.value.length <= 20 &&
       filePath !== ""
     )
   ) {
@@ -56,10 +54,9 @@ function evaluateInput() {
   if (!allowedExtensions.exec(filePath)) {
     //alert("Invalid file type");
     valid = false;
-    //max file size=16kb
+    //max file size=16kb -- or sth like that (medium blob)
   }
   return valid;
 }
 
-// document.addEventListener("DOMContentLoaded", init);
-window.addEventListener("load", init);
+document.addEventListener("DOMContentLoaded", init);

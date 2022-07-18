@@ -1,0 +1,38 @@
+
+
+  // $(document).ready(function() {
+  //   $("#deletePost").click(function() {
+  //     const inputPassword = document.getElementById('inputPassword').value;
+  //     const id = document.getElementById('id').value;
+
+  //     if (inputPassword.length > 0 && inputPassword.length <= 20) {
+  //       const data = {
+  //         password: inputPassword,
+  //         id: id
+  //       };
+
+  //       $.post("deletePost.php",
+  //         data,
+  //         function(data, status) {
+  //           alert("data: " + data + "; Status: " + status);
+  //         });
+  //     } else {
+  //       alert("wrong password input");
+  //     }
+  //   });
+
+
+  // });
+
+
+
+  // const deletePost = document.getElementById('deletePost');
+  // deletePost.addEventListener("click", function() {
+  //   const inputPassword = document.getElementById('inputPassword').value;
+  //   const id = document.getElementById('id').value;
+
+  //   const data = {
+  //     password: inputPassword,
+  //     id: id
+  //   };
+  // });

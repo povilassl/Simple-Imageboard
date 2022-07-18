@@ -28,7 +28,6 @@
   $sql = " SELECT * FROM posts order by date desc";
   $resultPosts = $mysqli->query($sql);
   ?>
-
 </head>
 
 <body>
@@ -47,7 +46,7 @@
     </div>
   </div>
 
-  <form id="form-add-post" class="form-add-post" enctype="multipart/form-data" method="POST" action="/src/pages/php/addNewPost.php">
+  <form id="form-add-post" class="form-add-post" enctype="multipart/form-data" method="POST" action="/src/pages/php/addNewPost.php" autocomplete="off">
     <div class="form-box required">
       <div class="add-post-title">Add a Post</div>
       <label for="username">Username:</label>
@@ -62,6 +61,12 @@
     <div class="form-box required">
       <label for="comment">Comment:</label>
       <input type="text" id="comment" name="comment" required>
+    </div>
+
+    <div class="form-box required">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" value="" required>
+      <i id="togglePassword">Toggle</i>
     </div>
 
     <div class="form-box required">
@@ -131,3 +136,8 @@
   ?>
 </body>
 <script type="text/javascript" src="/src/js/post_interactions.js"></script>
+<script type="text/javascript" src="/src/js/passwordManagement.js"></script>
+<script>
+  initTogglePasswordButton();
+  fillPasswordFromLocalStorage();
+</script>

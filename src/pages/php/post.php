@@ -28,6 +28,11 @@
   $id = $_POST['id'];
   $sql = "select * from posts where id = " . $id . ";";
   $resultPost = $mysqli->query($sql);
+
+  //if post doesnt exist - redirect to 404
+  if ($resultPost->num_rows === 0) {
+    header('Location: ./404.php');
+  }
   $rows = $resultPost->fetch_assoc();
 
   //fetch comments - multiple lines
@@ -56,7 +61,7 @@
   </div>
 
   <form id="form-add-comment" class="form-add-comment" enctype="multipart/form-data" method="POST" action="./addNewComment.php">
-    <input type="hidden" name="id" value="<?php echo $id ?>">
+    <input type="hidden" name="id" id="id" value="<?php echo $id ?>">
     <div class="form-box required">
       <div class="add-comment-title">Add a Reply</div>
       <label for="username">Username:</label>
@@ -112,6 +117,24 @@
     }
     ?>
   </table>
+
+  <form class="delete" action="./deletePost.php" method="POST">
+    <input type="hidden" name="id" value="<?php echo $id ?>">
+    <input type="text" name="inputPassword" id="password">
+    <i id="togglePassword">Toggle</i>
+    <button id="deletePost">Delete</button>
+  </form>
 </body>
 
 <script type="text/javascript" src="/src/js/comment_interactions.js"></script>
+<script type="text/javascript" src="/src/js/passwordManagement.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script>
+  fillPasswordFromLocalStorage();
+  initTogglePasswordButton();
+</script>
+<style>
+  .delete {
+    text-align: end;
+  }
+</style>
