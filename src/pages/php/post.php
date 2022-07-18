@@ -60,7 +60,7 @@
     </div>
   </div>
 
-  <form id="form-add-comment" class="form-add-comment" enctype="multipart/form-data" method="POST" action="./addNewComment.php">
+  <form id="form-add-comment" class="form-add-comment" enctype="multipart/form-data" method="POST" action="./addNewComment.php" autocomplete="off">
     <input type="hidden" name="id" id="id" value="<?php echo $id ?>">
     <div class="form-box required">
       <div class="add-comment-title">Add a Reply</div>
@@ -118,10 +118,10 @@
     ?>
   </table>
 
-  <form class="delete" action="./deletePost.php" method="POST">
+  <form class="delete" action="./deletePost.php" method="POST" autocomplete="off">
     <input type="hidden" name="id" value="<?php echo $id ?>">
     <input type="text" name="inputPassword" id="password">
-    <i id="togglePassword">Toggle</i>
+    <!-- <i id="togglePassword">Toggle</i> -->
     <button id="deletePost">Delete</button>
   </form>
 </body>
@@ -131,7 +131,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script>
   fillPasswordFromLocalStorage();
-  initTogglePasswordButton();
+  // initTogglePasswordButton();
 </script>
 <style>
   .delete {

@@ -65,8 +65,8 @@
 
     <div class="form-box required">
       <label for="password">Password:</label>
-      <input type="password" id="password" name="password" value="" required>
-      <i id="togglePassword">Toggle</i>
+      <input type="text" id="password" name="password" value="" required>
+      <!-- <i id="togglePassword">Toggle</i> -->
     </div>
 
     <div class="form-box required">
@@ -138,6 +138,6 @@
 <script type="text/javascript" src="/src/js/post_interactions.js"></script>
 <script type="text/javascript" src="/src/js/passwordManagement.js"></script>
 <script>
-  initTogglePasswordButton();
+  // initTogglePasswordButton();
   fillPasswordFromLocalStorage();
 </script>
