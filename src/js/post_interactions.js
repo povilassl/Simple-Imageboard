@@ -25,34 +25,50 @@ const submitReset = function (ev) {
   document.getElementById("form-add-post").reset();
 };
 
+function strContainsBadChars(str) {
+  let ans = false;
+  let badChars = "~ ! @ # $ % ^ & * ( ) _ + , . / ; : ' - =";
+  let arr = badChars.split(" ");
+  arr.forEach((el) => {
+    if (str.includes(el)) {
+      alert(str + " : " + el);
+      ans = true;
+    }
+  });
+  return ans;
+}
+
 function evaluateInput() {
   let valid = true;
-  let username = document.getElementById("username");
-  let password = document.getElementById("password");
-  let title = document.getElementById("title");
-  let comment = document.getElementById("comment");
-  let image = document.getElementById("image");
-  let filePath = image.value;
+  let username = document.getElementById("username").value;
+  let password = document.getElementById("password").value;
+  let title = document.getElementById("title").value;
+  let comment = document.getElementById("comment").value;
+  let filePath = document.getElementById("image").value;
 
   let allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
 
   if (
-    !(
-      username.value.length > 0 &&
-      username.value.length <= 50 &&
-      comment.value.length > 0 &&
-      comment.value.length <= 500 &&
-      title.value.length > 0 &&
-      title.value.length <= 100 &&
-      password.value.length > 0 &&
-      password.value.length <= 20 &&
-      filePath !== ""
-    )
+    username.length >= 5 &&
+    username.length <= 20 &&
+    title.length >= 5 &&
+    title.length <= 50 &&
+    comment.length >= 5 &&
+    comment.length <= 500 &&
+    password.length >= 5 &&
+    password.length <= 20 &&
+    !strContainsBadChars(username) &&
+    !strContainsBadChars(title) &&
+    !strContainsBadChars(comment) &&
+    filePath !== ""
   ) {
+  } else {
     valid = false;
   }
+
+  //TODO: more extensive checks
   if (!allowedExtensions.exec(filePath)) {
-    //alert("Invalid file type");
+    alert("Invalid file type");
     valid = false;
     //max file size=16kb -- or sth like that (medium blob)
   }

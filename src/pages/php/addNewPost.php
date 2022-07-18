@@ -28,6 +28,14 @@
     $comment = $_POST['comment'];
     $postPassword = $_POST['password'];
 
+    require '../../php/inputCheck.php';
+    $postValid = checkPostValid($image, $username, $title, $comment, $postPassword);
+
+    if (!$postValid) {
+        header('Location: ./404.php');
+    }
+
+    $postPassword = hash('sha256', $postPassword);
 
     $sql = "insert into posts (password, image, date, username, title, comment) values ('$postPassword', '$image', now(), '$username', '$title', '$comment' )";
     if ($mysqli->query($sql) === TRUE) {

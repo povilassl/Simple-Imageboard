@@ -29,7 +29,9 @@
     $sql = "select password from posts where id = " . $id . ";";
     $result = $mysqli->query($sql);
     $row = $result->fetch_assoc();
-    echo $row['password'];
+
+    $postPassword = hash('sha256', $postPassword);
+
 
     if ($row['password'] === $postPassword) {
 
@@ -41,7 +43,7 @@
     }
 
     $mysqli->close();
-    header('Location: ./404.php');
+    header('Location: /');
     ?>
 </head>
 

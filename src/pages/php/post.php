@@ -26,6 +26,12 @@
 
   //fetch post - only first line, maybe there is a better way?
   $id = $_POST['id'];
+
+  //not an integer - not viable for id
+  if (!is_int((int) $id)) {
+    header('Location: ./404.php');
+  }
+
   $sql = "select * from posts where id = " . $id . ";";
   $resultPost = $mysqli->query($sql);
 
