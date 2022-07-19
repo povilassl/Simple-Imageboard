@@ -124,7 +124,7 @@
     ?>
   </table>
 
-  <form class="delete" action="./deletePost.php" method="POST" autocomplete="off">
+  <form id="form-delete" class="form-delete" action="./deletePost.php" method="POST" autocomplete="off">
     <input type="hidden" name="id" value="<?php echo $id ?>">
     <input type="text" name="inputPassword" id="password">
     <!-- <i id="togglePassword">Toggle</i> -->
@@ -135,12 +135,8 @@
 <script type="text/javascript" src="/src/js/comment_interactions.js"></script>
 <script type="text/javascript" src="/src/js/passwordManagement.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<script>
-  fillPasswordFromLocalStorage();
-  // initTogglePasswordButton();
-</script>
 <style>
-  .delete {
+  .form-delete {
     text-align: end;
   }
 </style>

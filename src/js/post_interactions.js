@@ -10,13 +10,12 @@ const submitPost = function (ev) {
   ev.preventDefault();
   ev.stopPropagation();
 
-  let validCheck = evaluateInput();
+  const validCheck = evaluateInput();
 
   if (validCheck) {
     document.getElementById("form-add-post").submit();
   } else {
-    alert("wrong input");
-    //set red * -interactive
+    //TODO: set red * -interactive
   }
 };
 
@@ -25,20 +24,24 @@ const submitReset = function (ev) {
   document.getElementById("form-add-post").reset();
 };
 
-//move to for loop for faster return
 function strContainsBadChars(str) {
-  let ans = false;
-  let badChars = "~ ! @ # $ % ^ & * ( ) _ + , . / ; : ' - =";
-  let arr = badChars.split(" ");
-  arr.forEach((el) => {
-    if (str.includes(el)) {
-      alert(str + " : " + el);
-      ans = true;
+  const badChars = "~!@#$%^&*()_+,./;:'-=";
+  const arr = badChars.split("");
+
+  for (let i = 0; i < arr.length; i++) {
+    if (str.includes(arr[i])) {
+      alert("Character not allowed: " + arr[i]);
+      return true;
     }
-  });
-  return ans;
+  }
+
+  return false;
 }
 
+//TODO: make this function prettier - more efficient
+//maybe sth like - function check(string, min, max, name)
+//string - value passed, min and max - interval, name - for alert
+//or this - https://stackoverflow.com/questions/4602141/variable-name-as-a-string-in-javascript
 function evaluateInput() {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
@@ -101,6 +104,6 @@ function evaluateInput() {
 document.addEventListener("DOMContentLoaded", init);
 
 //temporary filler values TODO: Delete
-document.getElementById("username").value = "fillerValue";
-document.getElementById("title").value = "fillerValue";
-document.getElementById("comment").value = "fillerValue";
+document.getElementById("username").value = "fillerUsername";
+document.getElementById("title").value = "fillerTitle";
+document.getElementById("comment").value = "fillerComment";

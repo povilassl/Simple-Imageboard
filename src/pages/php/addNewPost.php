@@ -3,6 +3,8 @@
 <head>
 
     <?php
+    require '../../php/inputCheck.php';
+
     $user = 'root';
     $password = '';
     $database = 'my_db';
@@ -27,9 +29,9 @@
     $title = $_POST['title'];
     $comment = $_POST['comment'];
     $postPassword = $_POST['password'];
+    $imageName = $_FILES['image']['name'];
 
-    require '../../php/inputCheck.php';
-    $postValid = checkPostValid($image, $username, $title, $comment, $postPassword);
+    $postValid = checkPostValid($imageName, $username, $title, $comment, $postPassword);
 
     if (!$postValid) {
         header('Location: ./404.php');

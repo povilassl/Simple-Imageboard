@@ -6,13 +6,27 @@ const init = function () {
   document
     .getElementById("submit-comment")
     .addEventListener("click", submitComment);
+  document.getElementById("deletePost").addEventListener("click", deletePost);
+};
+
+const deletePost = function (ev) {
+  ev.preventDefault();
+  ev.stopPropagation();
+
+  //only check pass len - all characters allowed
+  const passLen = document.getElementById("password").value.length;
+  if (passLen >= 5 && passLen <= 20) {
+    document.getElementById("form-delete").submit();
+  } else {
+    alert("Invalid password");
+  }
 };
 
 const submitComment = function (ev) {
   ev.preventDefault();
   ev.stopPropagation();
 
-  let validCheck = evaluateInput();
+  const validCheck = evaluateInput();
 
   if (validCheck) {
     document.getElementById("form-add-comment").submit();
@@ -27,38 +41,67 @@ const submitReset = function (ev) {
   document.getElementById("form-add-comment").reset();
 };
 
-function evaluateInput() {
-  let valid = true;
-  let filePath = document.getElementById("image").value;
+function strContainsBadChars(str) {
+  const badChars = "~!@#$%^&*()_+,./;:'-=";
+  const arr = badChars.split("");
 
-  if (filePath === "") {
-    //no image submitted -- allowed in comments
-  } else {
-    let allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-
-    //need to check more extensively
-    if (!allowedExtensions.exec(filePath)) {
-      alert("Invalid file type");
-      valid = false;
-      //max file size=16kb
+  for (let i = 0; i < arr.length; i++) {
+    if (str.includes(arr[i])) {
+      alert("Character not allowed: " + arr[i]);
+      return true;
     }
   }
 
-  let comment = document.getElementById("comment");
-  let username = document.getElementById("username");
+  return false;
+}
+
+function evaluateInput() {
+  const username = document.getElementById("username").value;
+  const comment = document.getElementById("comment").value;
+  const filePath = document.getElementById("image").value;
 
   if (
     !(
-      username.value.length > 0 &&
-      username.value.length <= 50 &&
-      comment.value.length > 0 &&
-      comment.value.length <= 500
+      username.length >= 5 &&
+      username.length <= 20 &&
+      !strContainsBadChars(username)
     )
   ) {
-    valid = false;
+    alert("Invalid username");
+    return false;
   }
-  return valid;
+
+  if (
+    !(
+      comment.length >= 5 &&
+      comment.length <= 500 &&
+      !strContainsBadChars(comment)
+    )
+  ) {
+    alert("Invalid Comment");
+    return false;
+  }
+
+  if (filePath === "") {
+    alert("must upload file");
+    return false;
+  }
+
+  //find all dots (extensions) in the path
+  const occurenceOfExtension = filePath.split(".").length - 1;
+  const allowedExtensionsRegx = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+  const extension = filePath.substr(filePath.lastIndexOf("."));
+
+  if (!allowedExtensionsRegx.test(extension) || occurenceOfExtension != 1) {
+    alert("invalid file type");
+    return false;
+  }
+
+  return true;
 }
 
-// document.addEventListener("DOMContentLoaded", init);
-window.addEventListener("load", init);
+document.addEventListener("DOMContentLoaded", init);
+
+//temporary filler values TODO: Delete
+document.getElementById("username").value = "fillerUsername";
+document.getElementById("comment").value = "fillerComment";
