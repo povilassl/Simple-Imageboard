@@ -60,7 +60,7 @@
 
     <div class="form-box required">
       <label for="comment">Comment:</label>
-      <input type="text" id="comment" name="comment" required>
+      <textarea rows="3" cols="17" type="text" id="comment" name="comment" required></textarea>
     </div>
 
     <div class="form-box required">
@@ -90,7 +90,7 @@
         <!-- FETCHING DATA FROM EACH
                       ROW OF EVERY COLUMN -->
         <td>
-          <form action="/src/pages/php/post.php" method="POST">
+          <form action="/src/pages/php/post.php" method="GET">
             <input type="hidden" name="id" value="<?php echo $rowsPosts['id'] ?>">
             <input type="submit" value="[reply]">
           </form>

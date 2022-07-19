@@ -3,6 +3,8 @@
 <head>
 
     <?php
+    require '../../php/inputCheck.php';
+
     $user = 'root';
     $password = '';
     $database = 'my_db';
@@ -33,6 +35,14 @@
     $username = $_POST['username'];
     $comment = $_POST['comment'];
     $id = $_POST['id'];
+    $filename = $_FILES['image']['name'];
+    $filesize = $_FILES['image']['size'];
+
+    $commentValid = checkCommentValid($username, $comment, $filename, $filesize);
+
+    if (!$commentValid) {
+        header('Location: ./404.php');
+    }
 
     // SQL query to select data from database
     $sql = "insert into comments (id, date, image, username, comment) values ('$id', now(), '$image', '$username', '$comment' )";
@@ -52,7 +62,7 @@
     ?>
 
     <!-- redirect to inserted post -->
-    <form id="postForm" action="./post.php" method="POST">
+    <form id="postForm" action="./post.php" method="GET">
         <input type="hidden" name="id" value="<?php echo $id ?>">
     </form>
 

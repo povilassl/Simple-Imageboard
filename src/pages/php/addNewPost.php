@@ -31,7 +31,7 @@
     $postPassword = $_POST['password'];
     $imageName = $_FILES['image']['name'];
 
-    $postValid = checkPostValid($imageName, $username, $title, $comment, $postPassword);
+    $postValid = checkPostValid('post', $imageName, $username, $title, $comment, $postPassword);
 
     if (!$postValid) {
         header('Location: ./404.php');
@@ -58,7 +58,7 @@
     ?>
 
     <!-- redirect to inserted post -->
-    <form id="postForm" action="./post.php" method="POST">
+    <form id="postForm" action="./post.php" method="GET">
         <input type="hidden" name="id" value="<?php echo $id ?>">
     </form>
 

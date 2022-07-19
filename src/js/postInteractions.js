@@ -98,6 +98,15 @@ function evaluateInput() {
     return false;
   }
 
+  //validate file size - medium blob - 16mb
+  const input = document.getElementById("image");
+  const fileSize = input.files[0].size;
+
+  if (fileSize >= 16 * 10 ** 6) {
+    alert("File size too large");
+    return false;
+  }
+
   return true;
 }
 

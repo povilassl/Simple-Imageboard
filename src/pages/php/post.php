@@ -25,7 +25,7 @@
   }
 
   //fetch post - only first line, maybe there is a better way?
-  $id = $_POST['id'];
+  $id = $_GET['id'];
 
   //not an integer - not viable for id
   if (!is_int((int) $id)) {
@@ -76,7 +76,7 @@
 
     <div class="form-box required">
       <label for="comment">Comment:</label>
-      <input type="text" id="comment" name="comment" required>
+      <textarea rows="3" cols="17" type="text" id="comment" name="comment" required></textarea>
     </div>
 
     <div class="form-box">

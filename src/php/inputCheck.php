@@ -19,8 +19,40 @@
         return false;
     }
 
-    function checkPostValid($imageName, $username, $title, $comment, $postPassword)
+    function checkCommentValid($username, $comment, $filename, $filesize)
     {
+        $userlen = strlen($username);
+        $commlen = strlen($comment);
+
+
+        if ($filename !== "") {
+
+            //to deal with non ascii characters in extension - https://stackoverflow.com/questions/173868/how-to-get-a-files-extension-in-php
+            setlocale(LC_ALL, 'en_US.UTF-8');
+
+            $extension = pathinfo($filename, PATHINFO_EXTENSION);
+            $countOfDots = substr_count($filename, ".");
+            $regex = "/(png|jpg|jpeg|gif)/i";
+
+            if (!preg_match($regex, $extension) || $countOfDots !== 1 || $filesize > 16000000) {
+                return false;
+            }
+        }
+
+        if (
+            !($userlen  >= 5 && $userlen <= 20 &&
+                $commlen >= 5 && $commlen <= 500 &&
+                !contains($username) &&
+                !contains($comment))
+        ) {
+            return false;
+        }
+        return true;
+    }
+
+    function checkPostValid($type, $imageName, $username, $title, $comment, $postPassword)
+    {
+
         $userlen = strlen($username);
         $titlelen = strlen($title);
         $commlen = strlen($comment);

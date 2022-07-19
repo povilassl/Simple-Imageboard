@@ -31,7 +31,6 @@ const submitComment = function (ev) {
   if (validCheck) {
     document.getElementById("form-add-comment").submit();
   } else {
-    alert("wrong input");
     //set red * -interactive
   }
 };
@@ -82,19 +81,26 @@ function evaluateInput() {
     return false;
   }
 
-  if (filePath === "") {
-    alert("must upload file");
-    return false;
-  }
+  //validate files
+  if (filePath !== "") {
+    //find all dots (extensions) in the path
+    const occurenceOfExtension = filePath.split(".").length - 1;
+    const allowedExtensionsRegx = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+    const extension = filePath.substr(filePath.lastIndexOf("."));
 
-  //find all dots (extensions) in the path
-  const occurenceOfExtension = filePath.split(".").length - 1;
-  const allowedExtensionsRegx = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-  const extension = filePath.substr(filePath.lastIndexOf("."));
+    if (!allowedExtensionsRegx.test(extension) || occurenceOfExtension != 1) {
+      alert("invalid file type");
+      return false;
+    }
 
-  if (!allowedExtensionsRegx.test(extension) || occurenceOfExtension != 1) {
-    alert("invalid file type");
-    return false;
+    //validate file size - medium blob - 16mb
+    const input = document.getElementById("image");
+    const fileSize = input.files[0].size;
+
+    if (fileSize >= 16 * 10 ** 6) {
+      alert("File size too large");
+      return false;
+    }
   }
 
   return true;
