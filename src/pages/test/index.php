@@ -33,10 +33,10 @@
 <body>
   <nav class="center boards">
     <a class="board home" href="/">home</a>
-    <a class="board test" href="src/pages/">test</a>
+    <a class="board test" href="/src/pages/test/">test</a>
   </nav>
   <div class="center info">
-    <img src="/src/images/akira_motorcycle_test.png">
+    <img id="header-image" src="/src/images/akira_motorcycle_test.png">
     <div class="board-name">/T/ - Test Page</div>
     <div class="board-about">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae eveniet,
@@ -46,9 +46,10 @@
     </div>
   </div>
 
+
   <form id="form-add-post" class="form-add-post" enctype="multipart/form-data" method="POST" action="/src/pages/php/addNewPost.php" autocomplete="off">
+    <div class="add-post-title">Add a Post</div>
     <div class="form-box required">
-      <div class="add-post-title">Add a Post</div>
       <label for="username">Username:</label>
       <input type="text" id="username" name="username" required>
     </div>
@@ -79,6 +80,7 @@
       <button type="button" id="submit-reset">Reset</button>
     </div>
   </form>
+
 
 
   <table>

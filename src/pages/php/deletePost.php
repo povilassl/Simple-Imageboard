@@ -26,6 +26,7 @@
     //fetch post - only first line, maybe there is a better way?
     $id = $_POST['id'];
     $postPassword = $_POST['inputPassword'];
+
     $sql = "select password from posts where id = " . $id . ";";
     $result = $mysqli->query($sql);
     $row = $result->fetch_assoc();

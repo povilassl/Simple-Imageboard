@@ -56,7 +56,7 @@
     <a class="board test" href="/src/pages/test/">test</a>
   </nav>
   <div class="center info">
-    <img src="/src/images/akira_motorcycle_test.png">
+    <img id="header-image" src="/src/images/akira_motorcycle_test.png">
     <div class="board-name">/T/ - Test Page</div>
     <div class="board-about">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae eveniet,

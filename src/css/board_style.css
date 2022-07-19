@@ -45,8 +45,13 @@ body {
   font-size: 40px;
 }
 
-img {
-  min-width: 50px;
+#header-image {
+  width: 15%;
+  padding-top: 20px;
+}
+
+#file {
+  min-width: 100px;
   min-height: auto;
   width: 15%;
 
