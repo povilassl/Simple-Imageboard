@@ -11,4 +11,15 @@ checking input:
             currently only checks extensions
         type + size
 
+        file sizes:
+            original width - 15%
+            onclick width - initial
+            min-width - 50px
+
+            height - auto
+
+            
+
+
+
     

@@ -12,7 +12,8 @@
   </nav>
 
   <h1>AkiraChan 1.0</h1>
-  <img src="/src/images/akira_drifting.gif" />
+  <!-- <img src="/src/images/akira_drifting.gif" /> -->
+  <img src="/src/images/akiradrift.webp" />
   <div class="lorem lorem_header">Lorem Ipsum</div>
   <div class="lorem lorem_paragraph">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris a magna

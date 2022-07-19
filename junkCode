@@ -1,38 +1,65 @@
+// $(document).ready(function() {
+//   $("#deletePost").click(function() {
+//     const inputPassword = document.getElementById('inputPassword').value;
+//     const id = document.getElementById('id').value;
 
+//     if (inputPassword.length > 0 && inputPassword.length <= 20) {
+//       const data = {
+//         password: inputPassword,
+//         id: id
+//       };
 
-  // $(document).ready(function() {
-  //   $("#deletePost").click(function() {
-  //     const inputPassword = document.getElementById('inputPassword').value;
-  //     const id = document.getElementById('id').value;
+//       $.post("deletePost.php",
+//         data,
+//         function(data, status) {
+//           alert("data: " + data + "; Status: " + status);
+//         });
+//     } else {
+//       alert("wrong password input");
+//     }
+//   });
 
-  //     if (inputPassword.length > 0 && inputPassword.length <= 20) {
-  //       const data = {
-  //         password: inputPassword,
-  //         id: id
-  //       };
+// });
 
-  //       $.post("deletePost.php",
-  //         data,
-  //         function(data, status) {
-  //           alert("data: " + data + "; Status: " + status);
-  //         });
-  //     } else {
-  //       alert("wrong password input");
-  //     }
-  //   });
+// const deletePost = document.getElementById('deletePost');
+// deletePost.addEventListener("click", function() {
+//   const inputPassword = document.getElementById('inputPassword').value;
+//   const id = document.getElementById('id').value;
 
+//   const data = {
+//     password: inputPassword,
+//     id: id
+//   };
+// });
 
-  // });
+// //init db
+// const mysql = require("mysql");
+// //import {mysql} from 'mysql'
+// const connection = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "",
+//   database: "my_db",
+// });
+// connection.connect((err) => {
+//   if (err) throw err;
+//   console.log("Connected!");
+// });
 
+// function uploadPostToDB(username, title, comment) {
+//   var query_str =
+//     "INSERT INTO my_db.posts(id, username, title, comment) VALUES (DEFAULT, '" +
+//     username +
+//     "', '" +
+//     title +
+//     "', '" +
+//     comment +
+//     "')";
 
+//   connection.query(query_str, function (err, result) {
+//     if (err) throw err;
+//     console.log("1 record inserted");
+//   });
+// }
 
-  // const deletePost = document.getElementById('deletePost');
-  // deletePost.addEventListener("click", function() {
-  //   const inputPassword = document.getElementById('inputPassword').value;
-  //   const id = document.getElementById('id').value;
-
-  //   const data = {
-  //     password: inputPassword,
-  //     id: id
-  //   };
-  // });
+// uploadPostToDB("name1", "title1", "aaksjdhaksjdhkajshdjashs");

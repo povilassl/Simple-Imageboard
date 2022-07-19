@@ -95,7 +95,7 @@
             <input type="submit" value="[reply]">
           </form>
 
-          <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rowsPosts['image']); ?>">
+          <img id="file" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rowsPosts['image']); ?>">
         </td>
 
         <td><?php echo $rowsPosts['date']; ?></td>
@@ -116,7 +116,7 @@
           <td><?php echo $rowsComments['date']; ?></td>
           <?php
           if (!empty($rowsComments['image'])) {
-            echo '<td><img src="data:image/jpg;charset=utf8;base64,' . base64_encode($rowsComments['image']) . '" /></td>';
+            echo '<td><img id="file" src="data:image/jpg;charset=utf8;base64,' . base64_encode($rowsComments['image']) . '" /></td>';
           }
           ?>
           <td><?php echo $rowsComments['username']; ?></td>
@@ -135,5 +135,6 @@
   $mysqli->close();
   ?>
 </body>
-<script type="text/javascript" src="/src/js/post_interactions.js"></script>
+<script type="text/javascript" src="/src/js/postInteractions.js"></script>
 <script type="text/javascript" src="/src/js/passwordManagement.js"></script>
+<script type="text/javascript" src="/src/js/fileInteractions.js"></script>

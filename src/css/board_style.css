@@ -46,8 +46,12 @@ body {
 }
 
 img {
+  min-width: 50px;
+  min-height: auto;
   width: 15%;
+
   padding-top: 20px;
+  cursor: pointer;
 }
 
 .required:after {

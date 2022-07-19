@@ -94,7 +94,7 @@
     <tr>
 
       <td>
-        <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rows['image']); ?>">
+        <img id="file" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($rows['image']); ?>">
       </td>
 
       <td><?php echo $rows['date']; ?></td>
@@ -109,7 +109,7 @@
         <td>&nbsp;</td>
         <?php
         if (!empty($rowsComments['image'])) {
-          echo '<td><img src="data:image/jpg;charset=utf8;base64,' . base64_encode($rowsComments['image']) . '" /></td>';
+          echo '<td><img id="file" src="data:image/jpg;charset=utf8;base64,' . base64_encode($rowsComments['image']) . '" /></td>';
         }
         ?>
 
@@ -132,8 +132,9 @@
   </form>
 </body>
 
-<script type="text/javascript" src="/src/js/comment_interactions.js"></script>
+<script type="text/javascript" src="/src/js/commentInteractions.js"></script>
 <script type="text/javascript" src="/src/js/passwordManagement.js"></script>
+<script type="text/javascript" src="/src/js/fileInteractions.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <style>
   .form-delete {
