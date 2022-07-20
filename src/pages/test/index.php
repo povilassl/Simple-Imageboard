@@ -140,3 +140,13 @@
 <script type="text/javascript" src="/src/js/postInteractions.js"></script>
 <script type="text/javascript" src="/src/js/passwordManagement.js"></script>
 <script type="text/javascript" src="/src/js/fileInteractions.js"></script>
+<script>
+  //fix of the bug with deleted posts showing
+  window.onpageshow = function(evt) {
+    // If persisted then it is in the page cache, force a reload of the page.
+    if (evt.persisted) {
+      document.body.style.display = "none";
+      location.reload();
+    }
+  };
+</script>

@@ -124,7 +124,7 @@
     ?>
   </table>
 
-  <form id="form-delete" class="form-delete" action="./deletePost.php" method="POST" autocomplete="off">
+  <form id="form-delete" class="form-delete" autocomplete="off" method="POST" action="./deletePost.php">
     <input type="hidden" name="id" value="<?php echo $id ?>">
     <input type="text" name="inputPassword" id="password">
     <!-- <i id="togglePassword">Toggle</i> -->
@@ -135,9 +135,34 @@
 <script type="text/javascript" src="/src/js/commentInteractions.js"></script>
 <script type="text/javascript" src="/src/js/passwordManagement.js"></script>
 <script type="text/javascript" src="/src/js/fileInteractions.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<style>
-  .form-delete {
-    text-align: end;
-  }
-</style>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  window.onpageshow = function(evt) {
+    // If persisted then it is in the page cache, force a reload of the page.
+    if (evt.persisted) {
+      document.body.style.display = "none";
+      location.reload();
+    }
+  };
+
+
+  // $(document).ready(function() {
+  //   $('#form-delete').submit(function(e) {
+  //     e.preventDefault();
+  //     $.ajax({
+  //       type: "POST",
+  //       url: "./deletePost.php",
+  //       data: $(this).serialize(),
+  //       success: function(response) {
+  //         alert(response.success);
+  //         alert("askjd");
+  //       },
+  //       error: function() {
+
+  //         alert("err");
+  //       }
+  //     });
+  //     alert("aksjdhkajshdkjahsd");
+  //   });
+  // });
+</script>
